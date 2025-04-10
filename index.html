@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Каталог</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    .product {
+      background: #1f1f1f;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #00cc66;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Каталог товаров</h2>
+  <div class="product">
+    <h3>iPhone 14 Pro</h3>
+    <p>Цена: 599 000 ₸</p>
+    <button onclick="order()">Оформить заказ</button>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    function order() {
+      const data = {
+        product: "iPhone 14 Pro",
+        price: 599000
+      };
+      tg.sendData(JSON.stringify(data));
+    }
+  </script>
+</body>
+</html>
