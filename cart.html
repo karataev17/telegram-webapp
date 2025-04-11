@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Корзина</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0 20px;
+    }
+    h2 {
+      text-align: center;
+      padding: 16px 0;
+    }
+    .item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      background: #1f1f1f;
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .info {
+      flex: 1;
+    }
+    .info h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+    }
+    .info .price {
+      color: #00ff99;
+      font-size: 14px;
+    }
+    .qty {
+      font-size: 14px;
+      margin-top: 4px;
+      color: #ccc;
+    }
+    .total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+    }
+    .buttons button {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .checkout {
+      background: #00cc66;
+      color: white;
+    }
+    .back {
+      background: #2a2a2a;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h2>🛒 Ваша корзина</h2>
+  <div id="cart-list"></div>
+  <div class="total" id="cart-total"></div>
+  <div class="buttons">
+    <button class="checkout" onclick="checkout()">Оформить</button>
+    <button class="back" onclick="goBack()">Назад</button>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    fetch("products.json")
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("cart-list");
+        const totalBlock = document.getElementById("cart-total");
+
+        let total = 0;
+
+        cart.forEach(c => {
+          const p = data.find(prod => prod.id === c.id);
+          if (!p) return;
+          const item = document.createElement("div");
+          item.className = "item";
+          item.innerHTML = `
+            <img src="${p.image}" alt="${p.name}">
+            <div class="info">
+              <h3>${p.name}</h3>
+              <div class="price">${p.price.toLocaleString()} ₸</div>
+              <div class="qty">Количество: ${c.qty}</div>
+            </div>
+          `;
+          list.appendChild(item);
+          total += p.price * c.qty;
+        });
+
+        totalBlock.innerText = `Итого: ${total.toLocaleString()} ₸`;
+      });
+
+    function checkout() {
+      alert("Форма оформления будет здесь");
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
