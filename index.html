@@ -136,7 +136,7 @@
   </style>
 </head>
 <body>
-  <div class="header">🛍 Электроника</div>
+  <div class="header">Электроника</div>
   <div class="search">
     <input type="text" placeholder="Я ищу...">
   </div>
@@ -160,13 +160,17 @@
     let activeCategory = "Все";
 
     function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
       const existing = cart.find(p => p.name === name);
       if (existing) {
         existing.qty += 1;
       } else {
         cart.push({ name, price, qty: 1 });
       }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`Добавлено: ${name}`);
     }
+
 
     function openCart() {
       const modal = document.getElementById("cart-modal");
