@@ -5,7 +5,7 @@
     "price": 599000,
     "image": "images/iphone14.jpg",
     "category": "Смартфоны",
-    "description": "Мощный смартфон от Apple с потрясающим дисплеем."
+    "description": "Флагманский смартфон Apple с дисплеем Super Retina XDR, процессором A16 Bionic и системой камер Pro."
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "price": 799000,
     "image": "images/macbook.jpg",
     "category": "Ноутбуки",
-    "description": "Тонкий и лёгкий ноутбук на процессоре Apple M2."
+    "description": "Тонкий и лёгкий ноутбук с чипом M2, до 18 часов автономной работы и безвентиляторным дизайном."
   },
   {
     "id": 3,
@@ -21,6 +21,62 @@
     "price": 89000,
     "image": "images/airpods.jpg",
     "category": "Аксессуары",
-    "description": "Беспроводные наушники с отличным звуком."
+    "description": "Беспроводные наушники с активным шумоподавлением и пространственным аудио."
+  },
+  {
+    "id": 4,
+    "name": "Samsung Galaxy S23",
+    "price": 525000,
+    "image": "images/s23.jpg",
+    "category": "Смартфоны",
+    "description": "Флагман от Samsung с AMOLED-экраном 120 Гц, мощным процессором Snapdragon и камерой на 50 МП."
+  },
+  {
+    "id": 5,
+    "name": "Xiaomi Redmi Note 12",
+    "price": 149000,
+    "image": "images/redmi12.jpg",
+    "category": "Смартфоны",
+    "description": "Бюджетный смартфон с большим дисплеем, батареей 5000 мАч и поддержкой быстрой зарядки."
+  },
+  {
+    "id": 6,
+    "name": "iPad 10th Gen",
+    "price": 299000,
+    "image": "images/ipad.jpg",
+    "category": "Планшеты",
+    "description": "Новый iPad с большим экраном, поддержкой Apple Pencil и отличной производительностью для учёбы и развлечений."
+  },
+  {
+    "id": 7,
+    "name": "Apple Watch Series 8",
+    "price": 349000,
+    "image": "images/applewatch.jpg",
+    "category": "Аксессуары",
+    "description": "Умные часы с функцией ЭКГ, слежением за здоровьем, водонепроницаемостью и поддержкой уведомлений."
+  },
+  {
+    "id": 8,
+    "name": "Lenovo Legion 5",
+    "price": 659000,
+    "image": "images/legion5.jpg",
+    "category": "Ноутбуки",
+    "description": "Игровой ноутбук с экраном 144 Гц, графикой RTX 3060 и мощным охлаждением для геймеров."
+  },
+  {
+    "id": 9,
+    "name": "Sony WH-1000XM5",
+    "price": 169000,
+    "image": "images/sonyheadphones.jpg",
+    "category": "Аксессуары",
+    "description": "Лучшие беспроводные наушники с шумоподавлением и кристально чистым звуком."
+  },
+  {
+    "id": 10,
+    "name": "Samsung Galaxy Tab S8",
+    "price": 499000,
+    "image": "images/galaxytabs8.jpg",
+    "category": "Планшеты",
+    "description": "Премиум-планшет Samsung с большим дисплеем, стилусом S Pen и возможностью работы в многозадачном режиме."
   }
 ]
