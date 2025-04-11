@@ -24,6 +24,7 @@
       background: #1f1f1f;
       border-radius: 12px;
       padding: 12px;
+      align-items: center;
     }
     .item img {
       width: 80px;
@@ -42,10 +43,27 @@
       color: #00ff99;
       font-size: 14px;
     }
-    .qty {
-      font-size: 14px;
-      margin-top: 4px;
-      color: #ccc;
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .qty-controls button {
+      background-color: #00cc66;
+      border: none;
+      padding: 4px 8px;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .remove {
+      background-color: #cc0000;
+      border: none;
+      padding: 4px 8px;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
     }
     .total {
       text-align: right;
@@ -90,43 +108,57 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const list = document.getElementById("cart-list");
+      const totalBlock = document.getElementById("cart-total");
 
-    fetch("products.json")
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById("cart-list");
-        const totalBlock = document.getElementById("cart-total");
+      list.innerHTML = "";
+      let total = 0;
 
-        let total = 0;
-
-        cart.forEach(c => {
-          const p = data.find(prod => prod.id === c.id);
-          if (!p) return;
-          const item = document.createElement("div");
-          item.className = "item";
-          item.innerHTML = `
-            <img src="${p.image}" alt="${p.name}">
-            <div class="info">
-              <h3>${p.name}</h3>
-              <div class="price">${p.price.toLocaleString()} ₸</div>
-              <div class="qty">Количество: ${c.qty}</div>
+      cart.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <img src="${item.image || 'https://via.placeholder.com/80'}" alt="${item.name}">
+          <div class="info">
+            <h3>${item.name}</h3>
+            <div class="price">${item.price.toLocaleString()} ₸</div>
+            <div class="qty-controls">
+              <button onclick="changeQty(${index}, -1)">-</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty(${index}, 1)">+</button>
+              <button class="remove" onclick="removeItem(${index})">❌</button>
             </div>
-          `;
-          list.appendChild(item);
-          total += p.price * c.qty;
-        });
-
-        totalBlock.innerText = `Итого: ${total.toLocaleString()} ₸`;
+          </div>
+        `;
+        list.appendChild(div);
+        total += item.price * item.qty;
       });
 
-    function checkout() {
-      alert("Форма оформления будет здесь");
+      totalBlock.innerText = `Итого: ${total.toLocaleString()} ₸`;
+    }
+
+    function changeQty(index, delta) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart[index].qty += delta;
+      if (cart[index].qty < 1) cart[index].qty = 1;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
     }
 
     function goBack() {
       window.history.back();
     }
+
+    renderCart();
   </script>
 </body>
 </html>

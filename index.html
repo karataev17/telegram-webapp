@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Главная — Электроника</title>
+  <title>Электроника дукені</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
@@ -96,125 +96,51 @@
       font-size: 24px;
       font-weight: bold;
       cursor: pointer;
-    }
-    #cart-modal {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: #1f1f1f;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      max-height: 60%;
-      overflow-y: auto;
-      padding: 20px;
-      display: none;
-      flex-direction: column;
-      z-index: 9999;
-    }
-    .cart-item {
+      text-decoration: none;
       display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid #333;
-    }
-    .cart-item-name {
-      flex: 1;
-    }
-    .cart-total {
-      margin-top: 16px;
-      font-weight: bold;
-      font-size: 16px;
-      text-align: right;
-    }
-    .close-cart {
-      text-align: center;
-      margin-top: 10px;
-      color: #00cc66;
-      cursor: pointer;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 </head>
 <body>
-  <div class="header">Электроника</div>
+  <div class="header">Электроника дукені</div>
   <div class="search">
-    <input type="text" placeholder="Я ищу...">
+    <input type="text" placeholder="Я ищу..." id="search-box">
   </div>
   <div class="categories" id="category-list"></div>
   <div class="products" id="product-list"></div>
 
   <a href="cart.html" id="cart-btn">🛒</a>
 
-  <div id="cart-modal">
-    <div id="cart-items"></div>
-    <div class="cart-total" id="cart-total"></div>
-    <div class="close-cart" onclick="closeCart()">Закрыть</div>
-  </div>
-
   <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    let cart = [];
     let products = [];
     let activeCategory = "Все";
 
-    function addToCart(name, price) {
-      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const existing = cart.find(p => p.name === name);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ name, price, qty: 1 });
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert(`Добавлено: ${name}`);
-    }
-
-
-    function openCart() {
-      const modal = document.getElementById("cart-modal");
-      const itemsContainer = document.getElementById("cart-items");
-      const totalContainer = document.getElementById("cart-total");
-
-      itemsContainer.innerHTML = "";
-      let total = 0;
-      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-      cart.forEach(p => {
-        const item = document.createElement("div");
-        item.className = "cart-item";
-        item.innerHTML = `<div class='cart-item-name'>${p.name} x${p.qty}</div><div>${p.price * p.qty} ₸</div>`;
-        itemsContainer.appendChild(item);
-        total += p.price * p.qty;
-      });
-
-      totalContainer.innerText = `Итого: ${total} ₸`;
-      modal.style.display = "flex";
-    }
-
-    function closeCart() {
-      document.getElementById("cart-modal").style.display = "none";
-    }
-
     function renderProducts() {
+      const query = document.getElementById("search-box").value.toLowerCase();
       const container = document.getElementById("product-list");
       container.innerHTML = "";
-      products.filter(p => activeCategory === "Все" || p.category === activeCategory)
-        .forEach(p => {
-          const el = document.createElement("div");
-          el.className = "product";
-          el.innerHTML = `
-            <a href="product.html?id=${p.id}" style="text-decoration: none; color: inherit;">
-              <img src="${p.image}" alt="${p.name}">
-              <div class="product-name">${p.name}</div>
-              <div class="product-price">${p.price.toLocaleString()} ₸</div>
-            </a>
-            <button onclick="addToCart('${p.name}', ${p.price}); event.stopPropagation();">В корзину</button>
-          `;
 
-          container.appendChild(el);
-        });
+      products.filter(p =>
+        (activeCategory === "Все" || p.category === activeCategory) &&
+        p.name.toLowerCase().includes(query)
+      ).forEach(p => {
+        const el = document.createElement("div");
+        el.className = "product";
+        el.innerHTML = `
+          <a href="product.html?id=${p.id}" style="text-decoration: none; color: inherit;">
+            <img src="${p.image}" alt="${p.name}">
+            <div class="product-name">${p.name}</div>
+            <div class="product-price">${p.price.toLocaleString()} ₸</div>
+          </a>
+          <button onclick="addToCart(${p.id}); event.stopPropagation();">В корзину</button>
+        `;
+        container.appendChild(el);
+      });
     }
 
     function renderCategories() {
@@ -232,6 +158,23 @@
         container.appendChild(el);
       });
     }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const existing = cart.find(p => p.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id: product.id, name: product.name, price: product.price, qty: 1, image: product.image });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`Добавлено: ${product.name}`);
+    }
+
+    document.getElementById("search-box").addEventListener("input", renderProducts);
 
     fetch("products.json")
       .then(res => res.json())
