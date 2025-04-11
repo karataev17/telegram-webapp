@@ -179,6 +179,7 @@
 
       itemsContainer.innerHTML = "";
       let total = 0;
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
       cart.forEach(p => {
         const item = document.createElement("div");

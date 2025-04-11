@@ -85,8 +85,9 @@
         total: cart.reduce((sum, item) => sum + item.price * item.qty, 0)
       };
 
-      tg.sendData(JSON.stringify(order));
-      tg.close();
+    tg.sendData(JSON.stringify(order));
+    alert("✅ Спасибо за заказ! Мы свяжемся с вами в ближайшее время.");
+    tg.close();
     });
   </script>
 </body>
