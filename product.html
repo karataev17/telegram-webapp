@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Товар</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      padding: 20px;
+    }
+    img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    h2 {
+      margin-top: 16px;
+      font-size: 22px;
+    }
+    .price {
+      font-size: 18px;
+      color: #00ff99;
+      margin: 12px 0;
+    }
+    .desc {
+      font-size: 14px;
+      color: #ccc;
+      line-height: 1.5;
+    }
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+    }
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .add {
+      background-color: #00cc66;
+      color: white;
+    }
+    .back {
+      background-color: #2a2a2a;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="product-container">
+    Загрузка товара...
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get("id"));
+
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    fetch("products.json")
+      .then(res => res.json())
+      .then(data => {
+        const product = data.find(p => p.id === productId);
+        if (!product) return;
+
+        const html = `
+          <img src="${product.image}" alt="${product.name}">
+          <h2>${product.name}</h2>
+          <div class="price">${product.price.toLocaleString()} ₸</div>
+          <div class="desc">${product.description}</div>
+          <div class="actions">
+            <button class="add" onclick="addToCart(${product.id})">В корзину</button>
+            <button class="back" onclick="goBack()">Назад</button>
+          </div>
+        `;
+
+        document.getElementById("product-container").innerHTML = html;
+      });
+
+    function addToCart(id) {
+      fetch("products.json")
+        .then(res => res.json())
+        .then(data => {
+          const product = data.find(p => p.id === id);
+          if (!product) return;
+          const existing = cart.find(p => p.id === id);
+          if (existing) existing.qty += 1;
+          else cart.push({ id: product.id, name: product.name, price: product.price, qty: 1 });
+          localStorage.setItem("cart", JSON.stringify(cart));
+          alert("Товар добавлен в корзину");
+        });
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
