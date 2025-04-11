@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 14 Pro",
+    "price": 599000,
+    "image": "images/iphone14.jpg",
+    "category": "Смартфоны",
+    "description": "Мощный смартфон от Apple с потрясающим дисплеем."
+  },
+  {
+    "id": 2,
+    "name": "MacBook Air M2",
+    "price": 799000,
+    "image": "images/macbook.jpg",
+    "category": "Ноутбуки",
+    "description": "Тонкий и лёгкий ноутбук на процессоре Apple M2."
+  },
+  {
+    "id": 3,
+    "name": "Наушники AirPods",
+    "price": 89000,
+    "image": "images/airpods.jpg",
+    "category": "Аксессуары",
+    "description": "Беспроводные наушники с отличным звуком."
+  }
+]
