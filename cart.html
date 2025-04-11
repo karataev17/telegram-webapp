@@ -11,11 +11,23 @@
       color: #fff;
       font-family: sans-serif;
       margin: 0;
-      padding: 0 20px;
+      padding: 0 20px 80px;
     }
-    h2 {
+    header {
+      background-color: #1f1f1f;
+      padding: 16px;
       text-align: center;
-      padding: 16px 0;
+      font-size: 20px;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .cart-empty {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 18px;
+      color: #e0e0e0;
     }
     .item {
       display: flex;
@@ -52,10 +64,11 @@
     .qty-controls button {
       background-color: #00cc66;
       border: none;
-      padding: 4px 8px;
+      padding: 4px 10px;
       color: #fff;
       border-radius: 6px;
       cursor: pointer;
+      font-size: 16px;
     }
     .remove {
       background-color: #cc0000;
@@ -67,23 +80,26 @@
     }
     .total {
       text-align: right;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
-      margin-top: 20px;
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px solid #ccc;
     }
     .buttons {
-      margin-top: 20px;
+      margin-top: 24px;
       display: flex;
       gap: 12px;
     }
-    .buttons button {
+    .buttons button, .buttons a {
       flex: 1;
-      padding: 12px;
+      padding: 14px;
       font-size: 16px;
       font-weight: bold;
       border-radius: 8px;
       border: none;
-      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
     }
     .checkout {
       background: #00cc66;
@@ -96,11 +112,11 @@
   </style>
 </head>
 <body>
-  <h2>🛒 Ваша корзина</h2>
+  <header>🛒 Ваша корзина</header>
   <div id="cart-list"></div>
   <div class="total" id="cart-total"></div>
   <div class="buttons">
-    <a href="checkout.html"><button class="checkout">Оформить</button></a>
+    <a href="checkout.html" class="checkout">Оформить</a>
     <button class="back" onclick="goBack()">Назад</button>
   </div>
 
@@ -115,6 +131,12 @@
 
       list.innerHTML = "";
       let total = 0;
+
+      if (cart.length === 0) {
+        list.innerHTML = '<div class="cart-empty">Ваша корзина пуста 😢</div>';
+        totalBlock.innerHTML = "";
+        return;
+      }
 
       cart.forEach((item, index) => {
         const div = document.createElement("div");
