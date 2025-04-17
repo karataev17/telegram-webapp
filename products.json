@@ -17,7 +17,7 @@
   },
   {
     "id": 3,
-    "name": "Наушники AirPods",
+    "name": "Наушники AirPods    ",
     "price": 89000,
     "image": "images/airpods.jpg",
     "category": "Аксессуары",
@@ -41,7 +41,7 @@
   },
   {
     "id": 6,
-    "name": "iPad 10th Gen",
+    "name": "iPad 10th Gen    ",
     "price": 299000,
     "image": "images/ipad.jpg",
     "category": "Планшеты",
