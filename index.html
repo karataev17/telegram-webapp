@@ -110,6 +110,11 @@
   </div>
   <div class="categories" id="category-list"></div>
   <div class="products" id="product-list"></div>
+  <select id="lang-select" onchange="setLanguage(this.value)">
+    <option value="ru">🇷🇺 Рус</option>
+    <option value="kz">🇰🇿 Қазақ</option>
+    <option value="en">🇬🇧 Eng</option>
+  </select>
 
   <a href="cart.html" id="cart-btn">🛒</a>
 
@@ -158,6 +163,27 @@
         container.appendChild(el);
       });
     }
+  let lang = localStorage.getItem("lang") || "ru";
+  let translations = {};
+
+  function setLanguage(l) {
+    lang = l;
+    localStorage.setItem("lang", lang);
+    applyTranslations();
+  }
+
+  function applyTranslations() {
+    fetch("lang.json")
+      .then(res => res.json())
+      .then(data => {
+        translations = data[lang];
+        document.querySelector("h2").textContent = translations.checkout;
+        document.querySelector("label[for='name']").textContent = translations.name;
+        document.querySelector("label[for='phone']").textContent = translations.phone;
+        document.querySelector("label[for='address']").textContent = translations.address;
+        document.querySelector("button[type='submit']").textContent = translations.submit;
+      });
+  }
 
     function addToCart(id) {
       const product = products.find(p => p.id === id);
