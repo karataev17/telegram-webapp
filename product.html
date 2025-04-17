@@ -73,36 +73,37 @@
     const productId = parseInt(urlParams.get("id"));
     let lang = localStorage.getItem("lang") || "ru";
     let translations = {};
+    let productTranslations = {};
 
     function applyTranslations() {
-      fetch("lang.json")
-        .then(res => res.json())
-        .then(data => {
-          translations = data[lang];
-          loadProduct();
-        });
-    }
+      Promise.all([
+        fetch("lang.json").then(res => res.json()),
+        fetch("products-lang.json").then(res => res.json()),
+        fetch("products.json").then(res => res.json())
+      ]).then(([langData, productLangData, productData]) => {
+        translations = langData[lang];
+        productTranslations = productLangData[lang]?.products || {};
 
-    function loadProduct() {
-      fetch("products.json")
-        .then(res => res.json())
-        .then(data => {
-          const product = data.find(p => p.id === productId);
-          if (!product) return;
+        const product = productData.find(p => p.id === productId);
+        if (!product) return;
 
-          const html = `
-            <img src="${product.image}" alt="${product.name}">
-            <h2>${product.name}</h2>
-            <div class="price">${product.price.toLocaleString()} ₸</div>
-            <div class="desc">${product.description}</div>
-            <div class="actions">
-              <button class="add" onclick="addToCart(${product.id})">${translations.button_add || 'В корзину'}</button>
-              <button class="back" onclick="goBack()">${translations.back || 'Назад'}</button>
-            </div>
-          `;
+        const translated = productTranslations[product.name] || {};
+        const displayName = translated.name || product.name;
+        const displayDesc = translated.description || product.description;
 
-          document.getElementById("product-container").innerHTML = html;
-        });
+        const html = `
+          <img src="${product.image}" alt="${displayName}">
+          <h2>${displayName}</h2>
+          <div class="price">${product.price.toLocaleString()} ₸</div>
+          <div class="desc">${displayDesc}</div>
+          <div class="actions">
+            <button class="add" onclick="addToCart(${product.id})">${translations.button_add || 'В корзину'}</button>
+            <button class="back" onclick="goBack()">${translations.back || 'Назад'}</button>
+          </div>
+        `;
+
+        document.getElementById("product-container").innerHTML = html;
+      });
     }
 
     function addToCart(id) {
