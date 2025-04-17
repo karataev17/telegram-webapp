@@ -163,27 +163,7 @@
         container.appendChild(el);
       });
     }
-  let lang = localStorage.getItem("lang") || "ru";
-  let translations = {};
 
-  function setLanguage(l) {
-    lang = l;
-    localStorage.setItem("lang", lang);
-    applyTranslations();
-  }
-
-  function applyTranslations() {
-    fetch("lang.json")
-      .then(res => res.json())
-      .then(data => {
-        translations = data[lang];
-        document.querySelector("h2").textContent = translations.checkout;
-        document.querySelector("label[for='name']").textContent = translations.name;
-        document.querySelector("label[for='phone']").textContent = translations.phone;
-        document.querySelector("label[for='address']").textContent = translations.address;
-        document.querySelector("button[type='submit']").textContent = translations.submit;
-      });
-  }
 
     function addToCart(id) {
       const product = products.find(p => p.id === id);
@@ -210,5 +190,31 @@
         renderProducts();
       });
   </script>
+<script>
+  let lang = localStorage.getItem("lang") || "ru";
+  let translations = {};
+
+  function setLanguage(l) {
+    lang = l;
+    localStorage.setItem("lang", lang);
+    applyTranslations();
+  }
+
+  function applyTranslations() {
+    fetch("lang.json")
+      .then(res => res.json())
+      .then(data => {
+        translations = data[lang];
+        document.querySelector("header").textContent = translations.checkout;
+        document.querySelector("label[for='name']").textContent = translations.name;
+        document.querySelector("label[for='phone']").textContent = translations.phone;
+        document.querySelector("label[for='address']").textContent = translations.address;
+        document.querySelector("button[type='submit']").textContent = translations.submit;
+      });
+  }
+
+  applyTranslations();
+</script>
+
 </body>
 </html>
