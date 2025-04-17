@@ -158,7 +158,8 @@
         total += item.price * item.qty;
       });
 
-      totalBlock.innerText = `Итого: ${total.toLocaleString()} ₸`;
+       totalBlock.innerText = `${translations.total || "Итого"}: ${total.toLocaleString()} ₸`;
+
     }
 
     function changeQty(index, delta) {
