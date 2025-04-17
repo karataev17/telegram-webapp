@@ -1,0 +1,29 @@
+{
+  "ru": {
+    "cart": "Ваша корзина",
+    "checkout": "Оформить заказ",
+    "name": "Имя",
+    "phone": "Телефон",
+    "address": "Адрес доставки",
+    "submit": "Отправить заказ",
+    "thank_you": "Спасибо за заказ!"
+  },
+  "kz": {
+    "cart": "Себетіңіз",
+    "checkout": "Тапсырысты рәсімдеу",
+    "name": "Аты-жөні",
+    "phone": "Телефон",
+    "address": "Жеткізу мекенжайы",
+    "submit": "Тапсырыс беру",
+    "thank_you": "Тапсырыс үшін рахмет!"
+  },
+  "en": {
+    "cart": "Your Cart",
+    "checkout": "Checkout",
+    "name": "Name",
+    "phone": "Phone",
+    "address": "Delivery Address",
+    "submit": "Place Order",
+    "thank_you": "Thanks for your order!"
+  }
+}
