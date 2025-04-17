@@ -1,0 +1,152 @@
+{
+  "ru": {
+    "categories": {
+      "Смартфоны": "Смартфоны",
+      "Ноутбуки": "Ноутбуки",
+      "Аксессуары": "Аксессуары",
+      "Планшеты": "Планшеты"
+    },
+    "products": {
+      "iPhone 14 Pro": {
+        "name": "iPhone 14 Pro",
+        "description": "Флагманский смартфон Apple с дисплеем Super Retina XDR, процессором A16 Bionic и системой камер Pro."
+      },
+      "MacBook Air M2": {
+        "name": "MacBook Air M2",
+        "description": "Тонкий и лёгкий ноутбук с чипом M2, до 18 часов автономной работы и безвентиляторным дизайном."
+      },
+      "Наушники AirPods": {
+        "name": "Наушники AirPods",
+        "description": "Беспроводные наушники с активным шумоподавлением и пространственным аудио."
+      },
+      "Samsung Galaxy S23": {
+        "name": "Samsung Galaxy S23",
+        "description": "Флагман от Samsung с AMOLED-экраном 120 Гц, мощным процессором Snapdragon и камерой на 50 МП."
+      },
+      "Xiaomi Redmi Note 12": {
+        "name": "Xiaomi Redmi Note 12",
+        "description": "Бюджетный смартфон с большим дисплеем, батареей 5000 мАч и поддержкой быстрой зарядки."
+      },
+      "iPad 10th Gen": {
+        "name": "iPad 10th Gen",
+        "description": "Новый iPad с большим экраном, поддержкой Apple Pencil и отличной производительностью для учёбы и развлечений."
+      },
+      "Apple Watch Series 8": {
+        "name": "Apple Watch Series 8",
+        "description": "Умные часы с функцией ЭКГ, слежением за здоровьем, водонепроницаемостью и поддержкой уведомлений."
+      },
+      "Lenovo Legion 5": {
+        "name": "Lenovo Legion 5",
+        "description": "Игровой ноутбук с экраном 144 Гц, графикой RTX 3060 и мощным охлаждением для геймеров."
+      },
+      "Sony WH-1000XM5": {
+        "name": "Sony WH-1000XM5",
+        "description": "Лучшие беспроводные наушники с шумоподавлением и кристально чистым звуком."
+      },
+      "Samsung Galaxy Tab S8": {
+        "name": "Samsung Galaxy Tab S8",
+        "description": "Премиум-планшет Samsung с большим дисплеем, стилусом S Pen и возможностью работы в многозадачном режиме."
+      }
+    }
+  },
+  "kz": {
+    "categories": {
+      "Смартфоны": "Смартфондар",
+      "Ноутбуки": "Ноутбуктер",
+      "Аксессуары": "Аксессуарлар",
+      "Планшеты": "Планшеттер"
+    },
+    "products": {
+      "iPhone 14 Pro": {
+        "name": "iPhone 14 Pro",
+        "description": "Apple-дың Super Retina XDR дисплейi, A16 Bionic процессоры және Pro камера жүйесі бар флагмандық смартфоны."
+      },
+      "MacBook Air M2": {
+        "name": "MacBook Air M2",
+        "description": "M2 чипімен жабдықталған жұқа және жеңіл ноутбук, 18 сағатқа дейінгі жұмыс уақытымен."
+      },
+      "Наушники AirPods": {
+        "name": "AirPods құлаққаптары",
+        "description": "Белсенді шуды басу және кеңістіктік дыбыспен сымсыз құлаққаптар."
+      },
+      "Samsung Galaxy S23": {
+        "name": "Samsung Galaxy S23",
+        "description": "AMOLED 120 Гц экраны, Snapdragon процессоры және 50 МП камерасы бар Samsung флагманы."
+      },
+      "Xiaomi Redmi Note 12": {
+        "name": "Xiaomi Redmi Note 12",
+        "description": "5000 мАч батареясы және жылдам қуаттау функциясы бар бюджеттік смартфон."
+      },
+      "iPad 10th Gen": {
+        "name": "iPad 10-нұсқа",
+        "description": "Apple Pencil қолдайтын, оқу және ойынға арналған жаңа iPad."
+      },
+      "Apple Watch Series 8": {
+        "name": "Apple Watch Series 8",
+        "description": "ЭКГ, денсаулық бақылауы және су өткізбейтін функциясы бар ақылды сағаттар."
+      },
+      "Lenovo Legion 5": {
+        "name": "Lenovo Legion 5",
+        "description": "RTX 3060 графикасы мен 144 Гц экраны бар ойын ноутбугы."
+      },
+      "Sony WH-1000XM5": {
+        "name": "Sony WH-1000XM5",
+        "description": "Шу басу және таза дыбыс беру технологиясы бар ең үздік құлаққаптар."
+      },
+      "Samsung Galaxy Tab S8": {
+        "name": "Samsung Galaxy Tab S8",
+        "description": "S Pen стилусы және көп тапсырмалы режимі бар премиум планшет."
+      }
+    }
+  },
+  "en": {
+    "categories": {
+      "Смартфоны": "Smartphones",
+      "Ноутбуки": "Laptops",
+      "Аксессуары": "Accessories",
+      "Планшеты": "Tablets"
+    },
+    "products": {
+      "iPhone 14 Pro": {
+        "name": "iPhone 14 Pro",
+        "description": "Apple's flagship smartphone with Super Retina XDR display, A16 Bionic chip, and Pro camera system."
+      },
+      "MacBook Air M2": {
+        "name": "MacBook Air M2",
+        "description": "Thin and light laptop with M2 chip, up to 18 hours of battery life, and fanless design."
+      },
+      "Наушники AirPods": {
+        "name": "AirPods",
+        "description": "Wireless earbuds with active noise cancellation and spatial audio."
+      },
+      "Samsung Galaxy S23": {
+        "name": "Samsung Galaxy S23",
+        "description": "Samsung flagship with 120Hz AMOLED screen, Snapdragon processor, and 50MP camera."
+      },
+      "Xiaomi Redmi Note 12": {
+        "name": "Xiaomi Redmi Note 12",
+        "description": "Affordable smartphone with large display, 5000mAh battery, and fast charging."
+      },
+      "iPad 10th Gen": {
+        "name": "iPad 10th Gen",
+        "description": "New iPad with large screen, Apple Pencil support, and excellent performance for study and fun."
+      },
+      "Apple Watch Series 8": {
+        "name": "Apple Watch Series 8",
+        "description": "Smartwatch with ECG, health tracking, water resistance, and notification support."
+      },
+      "Lenovo Legion 5": {
+        "name": "Lenovo Legion 5",
+        "description": "Gaming laptop with 144Hz screen, RTX 3060 graphics, and strong cooling system."
+      },
+      "Sony WH-1000XM5": {
+        "name": "Sony WH-1000XM5",
+        "description": "Top-tier wireless headphones with noise cancellation and crystal-clear sound."
+      },
+      "Samsung Galaxy Tab S8": {
+        "name": "Samsung Galaxy Tab S8",
+        "description": "Premium Samsung tablet with large display, S Pen, and multitasking capabilities."
+      }
+    }
+  }
+}
