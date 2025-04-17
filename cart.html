@@ -176,6 +176,31 @@
       renderCart();
     }
 
+  let lang = localStorage.getItem("lang") || "ru";
+  let translations = {};
+
+  function applyTranslations() {
+    fetch("lang.json")
+      .then(res => res.json())
+      .then(data => {
+        translations = data[lang];
+
+        document.querySelector("header").textContent = translations.cart_title;
+        document.querySelector(".checkout").textContent = translations.checkout;
+        document.querySelector(".back").textContent = translations.back;
+
+        // перерендерить, если пустая корзина
+        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        if (cart.length === 0) {
+          document.getElementById("cart-list").innerHTML = `<div class="cart-empty">${translations.cart_empty}</div>`;
+          document.getElementById("cart-total").innerHTML = "";
+        }
+      });
+  }
+
+  applyTranslations();
+
+
     function goBack() {
       window.history.back();
     }
