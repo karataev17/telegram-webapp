@@ -23,13 +23,9 @@
       top: 0;
       z-index: 10;
     }
-    select {
-      margin: 10px auto;
-      display: block;
-      padding: 8px;
-      border-radius: 8px;
-      font-size: 16px;
-      border: none;
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
     }
     label {
       display: block;
@@ -70,13 +66,7 @@
   </style>
 </head>
 <body>
-  <header id="form-title">📦 Оформление заказа</header>
-
-  <select id="lang-select" onchange="setLanguage(this.value)">
-    <option value="ru">🇷🇺 Рус</option>
-    <option value="kz">🇰🇿 Қазақ</option>
-    <option value="en">🇬🇧 Eng</option>
-  </select>
+  <header id="header-title">📦 Оформление заказа</header>
 
   <form id="order-form">
     <label for="name" id="label-name">Имя</label>
@@ -90,7 +80,7 @@
 
     <div class="buttons">
       <button type="submit" id="submit-btn">Отправить заказ</button>
-      <button type="button" class="back" onclick="goBack()" id="back-btn">Назад</button>
+      <button type="button" class="back" onclick="goBack()">Назад</button>
     </div>
   </form>
 
@@ -101,25 +91,16 @@
     let lang = localStorage.getItem("lang") || "ru";
     let translations = {};
 
-    document.getElementById("lang-select").value = lang;
-
-    function setLanguage(l) {
-      lang = l;
-      localStorage.setItem("lang", lang);
-      applyTranslations();
-    }
-
     function applyTranslations() {
       fetch("lang.json")
         .then(res => res.json())
         .then(data => {
           translations = data[lang];
-          document.getElementById("form-title").textContent = translations.checkout;
+          document.getElementById("header-title").textContent = translations.checkout;
           document.getElementById("label-name").textContent = translations.name;
           document.getElementById("label-phone").textContent = translations.phone;
           document.getElementById("label-address").textContent = translations.address;
           document.getElementById("submit-btn").textContent = translations.submit;
-          document.getElementById("back-btn").textContent = translations.back;
         });
     }
 
@@ -145,7 +126,7 @@
       };
 
       tg.sendData(JSON.stringify(order));
-      alert(translations.thank || "Спасибо за заказ!");
+      alert(translations.success || "✅ Спасибо за заказ! Мы свяжемся с вами в ближайшее время.");
       tg.close();
     });
 
