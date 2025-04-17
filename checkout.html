@@ -23,9 +23,13 @@
       top: 0;
       z-index: 10;
     }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
+    select {
+      margin: 10px auto;
+      display: block;
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: none;
     }
     label {
       display: block;
@@ -66,27 +70,60 @@
   </style>
 </head>
 <body>
-  <header>📦 Оформление заказа</header>
+  <header id="form-title">📦 Оформление заказа</header>
+
+  <select id="lang-select" onchange="setLanguage(this.value)">
+    <option value="ru">🇷🇺 Рус</option>
+    <option value="kz">🇰🇿 Қазақ</option>
+    <option value="en">🇬🇧 Eng</option>
+  </select>
 
   <form id="order-form">
-    <label for="name">Имя</label>
+    <label for="name" id="label-name">Имя</label>
     <input type="text" id="name" required>
 
-    <label for="phone">Телефон</label>
+    <label for="phone" id="label-phone">Телефон</label>
     <input type="tel" id="phone" required>
 
-    <label for="address">Адрес доставки</label>
+    <label for="address" id="label-address">Адрес доставки</label>
     <textarea id="address" required></textarea>
 
     <div class="buttons">
-      <button type="submit">Отправить заказ</button>
-      <button type="button" class="back" onclick="goBack()">Назад</button>
+      <button type="submit" id="submit-btn">Отправить заказ</button>
+      <button type="button" class="back" onclick="goBack()" id="back-btn">Назад</button>
     </div>
   </form>
 
   <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
+
+    let lang = localStorage.getItem("lang") || "ru";
+    let translations = {};
+
+    document.getElementById("lang-select").value = lang;
+
+    function setLanguage(l) {
+      lang = l;
+      localStorage.setItem("lang", lang);
+      applyTranslations();
+    }
+
+    function applyTranslations() {
+      fetch("lang.json")
+        .then(res => res.json())
+        .then(data => {
+          translations = data[lang];
+          document.getElementById("form-title").textContent = translations.checkout;
+          document.getElementById("label-name").textContent = translations.name;
+          document.getElementById("label-phone").textContent = translations.phone;
+          document.getElementById("label-address").textContent = translations.address;
+          document.getElementById("submit-btn").textContent = translations.submit;
+          document.getElementById("back-btn").textContent = translations.back;
+        });
+    }
+
+    applyTranslations();
 
     const form = document.getElementById("order-form");
 
@@ -108,7 +145,7 @@
       };
 
       tg.sendData(JSON.stringify(order));
-      alert("✅ Спасибо за заказ! Мы свяжемся с вами в ближайшее время.");
+      alert(translations.thank || "Спасибо за заказ!");
       tg.close();
     });
 
