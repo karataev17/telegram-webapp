@@ -19,6 +19,20 @@
       text-align: center;
       font-size: 20px;
       font-weight: bold;
+      position: relative;
+    }
+    .lang-selector {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
+    .lang-selector select {
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+      background: #2a2a2a;
+      color: #fff;
     }
     .search {
       display: flex;
@@ -104,17 +118,21 @@
   </style>
 </head>
 <body>
-  <div class="header" id="header-title">Электроника</div>
+  <div class="header">
+    <div id="header-title">Электроника</div>
+    <div class="lang-selector">
+      <select id="lang-select" onchange="setLanguage(this.value)">
+        <option value="ru">🇷🇺 Рус</option>
+        <option value="kz">🇰🇿 Қазақ</option>
+        <option value="en">🇬🇧 Eng</option>
+      </select>
+    </div>
+  </div>
   <div class="search">
     <input type="text" placeholder="Я ищу..." id="search-box">
   </div>
   <div class="categories" id="category-list"></div>
   <div class="products" id="product-list"></div>
-  <select id="lang-select" onchange="setLanguage(this.value)">
-    <option value="ru">🇷🇺 Рус</option>
-    <option value="kz">🇰🇿 Қазақ</option>
-    <option value="en">🇬🇧 Eng</option>
-  </select>
 
   <a href="cart.html" id="cart-btn">🛒</a>
 
@@ -150,8 +168,10 @@
       const container = document.getElementById("product-list");
       container.innerHTML = "";
 
+      const allKey = translations.all || "Все";
+
       products.filter(p =>
-        (activeCategory === (translations.all || "Все") || p.category === activeCategory) &&
+        (activeCategory === allKey || p.category === activeCategory) &&
         p.name.toLowerCase().includes(query)
       ).forEach(p => {
         const el = document.createElement("div");
@@ -171,7 +191,8 @@
     }
 
     function renderCategories() {
-      const categories = [(translations.all || "Все"), ...new Set(products.map(p => p.category))];
+      const allKey = translations.all || "Все";
+      const categories = [allKey, ...new Set(products.map(p => p.category))];
       const container = document.getElementById("category-list");
       container.innerHTML = "";
       categories.forEach(cat => {
