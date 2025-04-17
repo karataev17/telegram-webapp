@@ -145,6 +145,8 @@
     let activeCategory = "Все";
     let lang = localStorage.getItem("lang") || "ru";
     let translations = {};
+    let productTranslations = {};
+    let categoryTranslations = {};
 
     function setLanguage(l) {
       lang = l;
@@ -153,15 +155,31 @@
     }
 
     function applyTranslations() {
-      fetch("lang.json")
-        .then(res => res.json())
-        .then(data => {
-          translations = data[lang];
-          document.getElementById("header-title").textContent = translations.title;
-          document.getElementById("search-box").placeholder = translations.search;
-          renderCategories();
-          renderProducts();
+      Promise.all([
+        fetch("lang.json").then(res => res.json()),
+        fetch("products-lang.json").then(res => res.json())
+      ]).then(([langData, productLang]) => {
+        translations = langData[lang];
+        const langSet = productLang[lang];
+        productTranslations = langSet.products;
+        categoryTranslations = langSet.categories;
+
+        document.getElementById("header-title").textContent = translations.title;
+        document.getElementById("search-box").placeholder = translations.search;
+
+        products = products.map(p => {
+          const translated = productTranslations[p.name] || {};
+          return {
+            ...p,
+            name: translated.name || p.name,
+            description: translated.description || p.description,
+            category: categoryTranslations[p.category] || p.category
+          };
         });
+
+        renderCategories();
+        renderProducts();
+      });
     }
 
     function renderProducts() {
