@@ -71,30 +71,42 @@
 
     const urlParams = new URLSearchParams(window.location.search);
     const productId = parseInt(urlParams.get("id"));
+    let lang = localStorage.getItem("lang") || "ru";
+    let translations = {};
 
-    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    function applyTranslations() {
+      fetch("lang.json")
+        .then(res => res.json())
+        .then(data => {
+          translations = data[lang];
+          loadProduct();
+        });
+    }
 
-    fetch("products.json")
-      .then(res => res.json())
-      .then(data => {
-        const product = data.find(p => p.id === productId);
-        if (!product) return;
+    function loadProduct() {
+      fetch("products.json")
+        .then(res => res.json())
+        .then(data => {
+          const product = data.find(p => p.id === productId);
+          if (!product) return;
 
-        const html = `
-          <img src="${product.image}" alt="${product.name}">
-          <h2>${product.name}</h2>
-          <div class="price">${product.price.toLocaleString()} ₸</div>
-          <div class="desc">${product.description}</div>
-          <div class="actions">
-            <button class="add" onclick="addToCart(${product.id})">В корзину</button>
-            <button class="back" onclick="goBack()">Назад</button>
-          </div>
-        `;
+          const html = `
+            <img src="${product.image}" alt="${product.name}">
+            <h2>${product.name}</h2>
+            <div class="price">${product.price.toLocaleString()} ₸</div>
+            <div class="desc">${product.description}</div>
+            <div class="actions">
+              <button class="add" onclick="addToCart(${product.id})">${translations.button_add || 'В корзину'}</button>
+              <button class="back" onclick="goBack()">${translations.back || 'Назад'}</button>
+            </div>
+          `;
 
-        document.getElementById("product-container").innerHTML = html;
-      });
+          document.getElementById("product-container").innerHTML = html;
+        });
+    }
 
     function addToCart(id) {
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
       fetch("products.json")
         .then(res => res.json())
         .then(data => {
@@ -102,15 +114,17 @@
           if (!product) return;
           const existing = cart.find(p => p.id === id);
           if (existing) existing.qty += 1;
-          else cart.push({ id: product.id, name: product.name, price: product.price, qty: 1 });
+          else cart.push({ id: product.id, name: product.name, price: product.price, qty: 1, image: product.image });
           localStorage.setItem("cart", JSON.stringify(cart));
-          alert("Товар добавлен в корзину");
+          alert(translations.alert_added || "Товар добавлен в корзину");
         });
     }
 
     function goBack() {
       window.history.back();
     }
+
+    applyTranslations();
   </script>
 </body>
 </html>
